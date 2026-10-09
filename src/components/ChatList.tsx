@@ -3,7 +3,6 @@ import {
   IconButton,
   InputBase,
   Typography,
-  useMediaQuery,
 } from '@mui/material'
 
 import SearchIcon from '@mui/icons-material/Search'
@@ -33,7 +32,6 @@ function ChatList({
   open,
   onToggle,
 }: ChatListProps) {
-  const isMobile = useMediaQuery('(max-width:719px)')
 
   return (
     <Box

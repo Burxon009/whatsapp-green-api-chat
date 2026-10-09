@@ -3,6 +3,7 @@ import {
   Box,
   IconButton,
   Typography,
+  useMediaQuery,
 } from '@mui/material'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
@@ -18,18 +19,25 @@ interface ChatWindowProps {
   chat: Chat | null
   config: GreenApiConfig
   onMessageSent: (message: Message) => void
+  onBackToChats: () => void
 }
 
 function ChatWindow({
   chat,
   config,
   onMessageSent,
+  onBackToChats,
 }: ChatWindowProps) {
+  const isMobile = useMediaQuery('(max-width:719px)')
+
   if (!chat) {
     return (
       <Box
         sx={{
           flex: 1,
+          width: '100%',
+          minWidth: 0,
+          minHeight: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -72,7 +80,9 @@ function ChatWindow({
     <Box
       sx={{
         flex: 1,
+        width: '100%',
         minWidth: 0,
+        minHeight: 0,
         display: 'flex',
         flexDirection: 'column',
         bgcolor: '#efeae2',
@@ -82,7 +92,7 @@ function ChatWindow({
         sx={{
           height: 64,
           minHeight: 64,
-          px: 2,
+          px: { xs: 1, sm: 2 },
           display: 'flex',
           alignItems: 'center',
           bgcolor: '#f0f2f5',
@@ -90,11 +100,10 @@ function ChatWindow({
         }}
       >
         <IconButton
+          onClick={onBackToChats}
+          aria-label="Вернуться к чатам"
           sx={{
-            display: {
-              xs: 'flex',
-              md: 'none',
-            },
+            display: isMobile ? 'flex' : 'none',
             mr: 1,
             color: '#54656f',
           }}
@@ -146,6 +155,7 @@ function ChatWindow({
 
         <IconButton
           sx={{
+            display: { xs: 'none', sm: 'inline-flex' },
             color: '#54656f',
           }}
         >

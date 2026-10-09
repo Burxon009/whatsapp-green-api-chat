@@ -3,6 +3,7 @@ import {
   IconButton,
   InputBase,
   Typography,
+  useMediaQuery,
 } from '@mui/material'
 
 import SearchIcon from '@mui/icons-material/Search'
@@ -32,11 +33,20 @@ function ChatList({
   open,
   onToggle,
 }: ChatListProps) {
+  const isMobile = useMediaQuery('(max-width:719px)')
+
   return (
     <Box
       sx={{
-        width: open ? 360 : 0,
-        minWidth: open ? 360 : 0,
+        width: open ? 'min(320px, 42vw)' : 0,
+        minWidth: open ? 'min(260px, 38vw)' : 0,
+        maxWidth: 320,
+        '@media (max-width:719px)': {
+          width: open ? '100%' : 0,
+          minWidth: open ? '100%' : 0,
+          maxWidth: '100%',
+        },
+        flexShrink: 0,
         height: '100%',
         overflow: 'hidden',
         display: 'flex',
@@ -80,6 +90,7 @@ function ChatList({
           <IconButton
             onClick={onToggle}
             sx={{
+              display: { xs: 'none', md: 'inline-flex' },
               color: '#54656f',
             }}
           >
